@@ -24,7 +24,8 @@
     - `sudo npm i -g expo-cli` for Max/Linux
 6. Now navigate to the repository you just cloned through the terminal and open the project in VSCode
 7. To test out the app, type `npm start` in the terminal while inside the repository directory
-8. You can additionally get the expo app on your mobile device to test the app through a physical device.
+    -  A browser Window will open up with the logs of your Bundle and options to run this app virtually
+8. You can additionally get the expo app on your mobile device to scan the QR code and test the app through a physical device. 
 
 ## Additional Information:
 #### To improve our coding experience, we can add a few extensions in VSCode.

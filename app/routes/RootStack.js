@@ -14,7 +14,11 @@ export default class RootStack extends Component {
         mode="modal"
       >
         <Stack.Screen name="Main" component={HomeStack} />
-        <Stack.Screen name="Filter" component={FilterScreen} />
+        <Stack.Screen
+          name="Filter"
+          options={{ headerShown: true }}
+          component={FilterScreen}
+        />
       </Stack.Navigator>
     );
   }

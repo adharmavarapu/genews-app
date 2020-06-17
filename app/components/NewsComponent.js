@@ -5,7 +5,7 @@ export default class NewsComponent extends Component {
   render() {
     return (
       <TouchableOpacity
-        style={{ alignItems: "center" }}
+        style={{ alignItems: "center", marginBottom: this.props.spacing }}
         onPress={this.props.onClick}
       >
         <Image

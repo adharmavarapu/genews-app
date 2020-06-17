@@ -8,8 +8,6 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { ScrollView } from "react-native-gesture-handler";
 import environment from "../config/environment";
 import palette from "../config/palette";
@@ -41,7 +39,6 @@ export default class ArticleScreen extends Component {
 }
 const styles = StyleSheet.create({
   fullContentView: {
-    marginTop: environment.TOP_MARGIN,
     marginLeft: 9,
     marginRight: 15,
     flex: 1,

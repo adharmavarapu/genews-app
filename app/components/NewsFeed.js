@@ -1,15 +1,5 @@
 import React, { Component } from "react";
-import {
-  View,
-  Image,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  StatusBar,
-} from "react-native";
-import palette from "../config/palette";
+import { View, StyleSheet, FlatList } from "react-native";
 import NewsComponent from "./NewsComponent";
 export default class NewsFeed extends Component {
   returnDetails(a, i) {
@@ -25,7 +15,7 @@ export default class NewsFeed extends Component {
     return (
       <View style={{ flex: 1, justifyContent: "center" }}>
         <FlatList
-          contentContainerStyle={{ flexGrow: 1, marginTop: 10 }}
+          contentContainerStyle={{ flexGrow: 1 }}
           data={this.props.items.filter((a) => a.active)}
           renderItem={({ item }) =>
             item.articles.map((a) => (

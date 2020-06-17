@@ -16,7 +16,11 @@ export default class HomeStack extends Component {
         initialRouteName="Home"
       >
         <Stack.Screen name="Home" component={MainScreen} />
-        <Stack.Screen name="Article" component={ArticleScreen} />
+        <Stack.Screen
+          name="Article"
+          options={{ headerShown: true }}
+          component={ArticleScreen}
+        />
       </Stack.Navigator>
     );
   }

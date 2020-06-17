@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import environment from "../config/environment";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import palette from "../config/palette";
@@ -11,20 +11,6 @@ export default class FilterScreen extends Component {
     const { params } = route;
     return (
       <SafeAreaView style={styles.fullContentView}>
-        <TouchableOpacity
-          style={styles.goBack}
-          onPress={() => navigation.navigate("Main")}
-        >
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 20,
-              color: palette.detailText,
-            }}
-          >
-            X
-          </Text>
-        </TouchableOpacity>
         <View>
           <View style={styles.heading}>
             <Text

@@ -11,15 +11,9 @@ import {
   Image,
 } from "react-native";
 import palette from "../config/palette";
-import NewsComponent from "../components/NewsComponent";
 import NewsFeed from "../components/NewsFeed";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import environment from "../config/environment";
-import {
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 export default class MainScreen extends Component {
   state = {
@@ -88,6 +82,11 @@ export default class MainScreen extends Component {
       },
       {
         title: "BLM",
+        active: true,
+        articles: [],
+      },
+      {
+        title: "Finance",
         active: true,
         articles: [],
       },

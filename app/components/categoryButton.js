@@ -5,11 +5,11 @@ import palette from "../config/palette";
 
 export default class CategoryButton extends Component {
   state = {
-    active: this.props.element.active,
+    active: this.props.isActive,
   };
   handleToggle = () => {
     this.props.onClick();
-    this.setState({ active: this.props.element.active });
+    this.setState({ active: this.props.isActive });
   };
   render() {
     return (
@@ -24,7 +24,7 @@ export default class CategoryButton extends Component {
                 textAlignVertical: "center",
               }}
             >
-              {this.props.element.title}
+              {this.props.element}
             </Text>
             <View style={{ justifyContent: "center" }}>
               <Image
@@ -32,7 +32,7 @@ export default class CategoryButton extends Component {
                   marginRight: 20,
                   width: 15,
                   height: 15,
-                  opacity: this.state.active ? 1 : 0,
+                  opacity: this.props.isActive ? 1 : 0,
                 }}
                 source={require("../assets/checkMark.png")}
               />

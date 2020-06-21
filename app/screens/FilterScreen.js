@@ -6,6 +6,15 @@ import palette from "../config/palette";
 import CategoryButton from "../components/categoryButton";
 
 export default class FilterScreen extends Component {
+  state = {
+    activeStates: [true, false, false],
+  };
+  handleClick = (p, c) => {
+    p.onClick(c);
+    var updatedCategoryStates = [false, false, false];
+    updatedCategoryStates[c] = true;
+    this.setState({ activeStates: updatedCategoryStates });
+  };
   render() {
     const { navigation, route } = this.props;
     const { params } = route;
@@ -20,14 +29,17 @@ export default class FilterScreen extends Component {
                 fontWeight: "bold",
               }}
             >
-              Categories
+              Sort By:
             </Text>
           </View>
           {params.categories.map((c) => (
             <CategoryButton
-              key={c.title}
+              key={c}
+              isActive={this.state.activeStates[params.categories.indexOf(c)]}
               element={c}
-              onClick={() => params.onClick(params.categories.indexOf(c))}
+              onClick={() =>
+                this.handleClick(params, params.categories.indexOf(c))
+              }
             />
           ))}
         </View>

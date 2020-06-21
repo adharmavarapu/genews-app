@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import NewsComponent from "./NewsComponent";
+import environment from "../config/environment";
 export default class NewsFeed extends Component {
-  returnDetails(a, i) {
+  getCategory(i) {
+    return environment.CATEGORYACCESS[i];
+  }
+  returnDetails(i) {
     return {
-      img: a.img,
-      title: a.title,
-      date: a.date,
-      desc: a.desc,
-      category: i.title,
+      img: i.img,
+      title: i.title,
+      date: i.date,
+      desc: i.desc,
+      category: i.category,
     };
   }
   render() {
@@ -16,20 +20,18 @@ export default class NewsFeed extends Component {
       <View style={{ flex: 1, justifyContent: "center" }}>
         <FlatList
           contentContainerStyle={{ flexGrow: 1 }}
-          data={this.props.items.filter((a) => a.active)}
-          renderItem={({ item }) =>
-            item.articles.map((a) => (
-              <NewsComponent
-                key={item.articles.indexOf(a)}
-                date={a.date}
-                title={a.title}
-                onClick={() => this.props.onClick(this.returnDetails(a, item))}
-                image={a.img}
-                desc={a.desc}
-                category={item.title}
-              />
-            ))
-          }
+          data={this.props.items}
+          renderItem={({ item }) => (
+            <NewsComponent
+              key={this.props.items.indexOf(item)}
+              date={item.date}
+              title={item.title}
+              onClick={() => this.props.onClick(this.returnDetails(item))}
+              image={item.img}
+              desc={item.desc}
+              category={this.getCategory(item.category)}
+            />
+          )}
           keyExtractor={(a) => this.props.items.indexOf(a).toString()}
         />
       </View>

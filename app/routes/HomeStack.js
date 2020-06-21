@@ -15,7 +15,13 @@ export default class HomeStack extends Component {
         }}
         initialRouteName="Home"
       >
-        <Stack.Screen name="Home" component={MainScreen} />
+        <Stack.Screen
+          name="Home"
+          component={MainScreen}
+          initialParams={{
+            totalArticles: this.props.route.params.totalArticles,
+          }}
+        />
         <Stack.Screen
           name="Article"
           options={{ headerShown: true }}

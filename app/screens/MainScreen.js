@@ -18,7 +18,7 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 export default class MainScreen extends Component {
   state = {
     totalArticles: this.props.route.params.totalArticles,
-    filter: -1,
+    filter: this.props.route.params.filter,
   };
 
   handleToggle = (index) => {
@@ -32,18 +32,52 @@ export default class MainScreen extends Component {
     StatusBar.setBackgroundColor(palette.accent);
     return (
       <SafeAreaView style={styles.fullContentView}>
-        <View style={styles.banner}>
+        <View
+          style={[
+            styles.banner,
+            this.state.filter === undefined
+              ? styles.banner
+              : { backgroundColor: palette.background },
+            ,
+          ]}
+        >
           <TouchableWithoutFeedback
             style={{ marginLeft: 20, marginTop: 30 }}
             onPress={() => navigation.openDrawer()}
           >
             <Image
               style={{ resizeMode: "contain", height: 30, width: 30 }}
-              source={require("../assets/menu.png")}
+              source={
+                this.state.filter === undefined
+                  ? require("../assets/menu.png")
+                  : require("../assets/menuBlack.png")
+              }
             />
           </TouchableWithoutFeedback>
-          <View style={styles.logo}>
-            <Text style={styles.heading}>GENEWS</Text>
+          <View
+            style={[
+              styles.logo,
+              this.state.filter === undefined
+                ? styles.logo
+                : { borderWidth: 0 },
+            ]}
+          >
+            <Text
+              style={[
+                styles.heading,
+                this.state.filter === undefined
+                  ? styles.heading
+                  : {
+                      color: palette.accent,
+                      textDecorationLine: "underline",
+                      fontSize: 23,
+                    },
+              ]}
+            >
+              {this.state.filter == undefined
+                ? "GENEWS"
+                : environment.CATEGORYACCESS[this.state.filter]}
+            </Text>
           </View>
           <TouchableWithoutFeedback
             style={styles.filterButton}
@@ -54,7 +88,16 @@ export default class MainScreen extends Component {
               })
             }
           >
-            <Text style={styles.filterText}>Filter</Text>
+            <Text
+              style={[
+                styles.filterText,
+                this.state.filter === undefined
+                  ? styles.filterText
+                  : { color: palette.text },
+              ]}
+            >
+              Filter
+            </Text>
           </TouchableWithoutFeedback>
         </View>
         <NewsFeed
@@ -98,9 +141,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: palette.background,
     fontWeight: "bold",
-    /** 
-    textDecorationLine: "underline",
-    */
   },
   categories: {
     flexDirection: "row",

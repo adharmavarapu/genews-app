@@ -20,6 +20,7 @@ export default class HomeStack extends Component {
           component={MainScreen}
           initialParams={{
             totalArticles: this.props.route.params.totalArticles,
+            filter: this.props.route.params.filter,
           }}
         />
         <Stack.Screen

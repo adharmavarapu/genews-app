@@ -56,6 +56,19 @@ export default class App extends Component {
       },
     ],
   };
+  transformCategory(str) {
+    if (str === "BLM") {
+      return str;
+    } else if (str.includes("&")) {
+      var array = str.split("&");
+      return (
+        this.transformCategory(array[0]) +
+        "&" +
+        this.transformCategory(array[1])
+      );
+    }
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }
   render() {
     const Drawer = createDrawerNavigator();
     return (
@@ -88,66 +101,22 @@ export default class App extends Component {
             options={{ drawerLabel: "\tOpinion Pieces" }}
             component={OpinionScreen}
           />
-          <Drawer.Screen
-            name="BLM"
-            options={{ drawerLabel: "\tBLM" }}
-            initialParams={{
-              totalArticles: this.state.totalArticles.filter(
-                (a) => a.category == environment.CATEGORIES["BLM"]
-              ),
-            }}
-            component={RootStack}
-          />
-          <Drawer.Screen
-            name="Politics"
-            options={{ drawerLabel: "\tPolitics" }}
-            initialParams={{
-              totalArticles: this.state.totalArticles.filter(
-                (a) => a.category == environment.CATEGORIES["Politics"]
-              ),
-            }}
-            component={RootStack}
-          />
-          <Drawer.Screen
-            name="Money"
-            options={{ drawerLabel: "\tMoney" }}
-            initialParams={{
-              totalArticles: this.state.totalArticles.filter(
-                (a) => a.category == environment.CATEGORIES["Money"]
-              ),
-            }}
-            component={RootStack}
-          />
-          <Drawer.Screen
-            name="Finance"
-            options={{ drawerLabel: "\tFinance" }}
-            initialParams={{
-              totalArticles: this.state.totalArticles.filter(
-                (a) => a.category == environment.CATEGORIES["Finance"]
-              ),
-            }}
-            component={RootStack}
-          />
-          <Drawer.Screen
-            name="World"
-            options={{ drawerLabel: "\tWorld" }}
-            initialParams={{
-              totalArticles: this.state.totalArticles.filter(
-                (a) => a.category == environment.CATEGORIES["World"]
-              ),
-            }}
-            component={RootStack}
-          />
-          <Drawer.Screen
-            name="Arts&Culture"
-            options={{ drawerLabel: "\tArts&Culture" }}
-            initialParams={{
-              totalArticles: this.state.totalArticles.filter(
-                (a) => a.category == environment.CATEGORIES["Arts&Culture"]
-              ),
-            }}
-            component={RootStack}
-          />
+          {environment.CATEGORYACCESS.map((b) => (
+            <Drawer.Screen
+              name={this.transformCategory(b)}
+              key={environment.CATEGORYACCESS.indexOf(b)}
+              options={{ drawerLabel: "\t" + this.transformCategory(b) }}
+              initialParams={{
+                totalArticles: this.state.totalArticles.filter(
+                  (a) =>
+                    a.category ==
+                    environment.CATEGORIES[this.transformCategory(b)]
+                ),
+                filter: environment.CATEGORIES[this.transformCategory(b)],
+              }}
+              component={RootStack}
+            />
+          ))}
         </Drawer.Navigator>
       </NavigationContainer>
     );

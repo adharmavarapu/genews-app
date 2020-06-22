@@ -17,6 +17,7 @@ export default class RootStack extends Component {
         <Stack.Screen
           initialParams={{
             totalArticles: this.props.route.params.totalArticles,
+            filter: this.props.route.params.filter,
           }}
           name="Main"
           component={HomeStack}

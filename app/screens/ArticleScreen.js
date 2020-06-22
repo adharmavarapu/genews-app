@@ -25,7 +25,7 @@ export default class ArticleScreen extends Component {
           <View style={styles.heading}>
             <Text style={styles.title}>{params.title}</Text>
             <Text style={styles.detailText}>
-              {params.date} | {params.category}
+              {params.date} | {environment.CATEGORYACCESS[params.category]}
             </Text>
           </View>
           <View style={styles.content}>

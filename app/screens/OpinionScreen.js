@@ -5,6 +5,7 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 export default class OpinionScreen extends Component {
   render() {
+    const { navigation } = this.props;
     return (
       <SafeAreaView style={{ marginTop: environment.TOP_MARGIN }}>
         <TouchableWithoutFeedback

@@ -19,11 +19,38 @@ export default class MainScreen extends Component {
   state = {
     totalArticles: this.props.route.params.totalArticles,
     filter: this.props.route.params.filter,
+    sort: [true, false, false],
   };
-
+  constructor(props) {
+    super(props);
+    articlesUpdated = [...props.route.params.totalArticles];
+    articlesUpdated.sort((a, b) => this.compareDates(b.date, a.date));
+    this.state = { totalArticles: articlesUpdated };
+  }
+  compareDates(date1, date2) {
+    date1Array = date1.split(/[\s,]+/);
+    date2Array = date2.split(/[\s,]+/);
+    return (
+      new Date(
+        date1Array[2],
+        environment.MONTHS[date1Array[0]],
+        date1Array[1]
+      ) -
+      new Date(date2Array[2], environment.MONTHS[date2Array[0]], date2Array[1])
+    );
+  }
   handleToggle = (index) => {
-    var categoriesUpdated = this.setState({
-      categoriesUpdated: this.state.categories,
+    articlesUpdated = [...this.state.totalArticles];
+    if (index == 0) {
+      articlesUpdated.sort((a, b) => this.compareDates(b.date, a.date));
+    } else if (index == 1) {
+    } else {
+    }
+    sortUpdated = [false, false, false];
+    sortUpdated[index] = true;
+    this.setState({ sort: sortUpdated });
+    this.setState({
+      totalArticles: articlesUpdated,
     });
   };
 
@@ -83,6 +110,7 @@ export default class MainScreen extends Component {
             style={styles.filterButton}
             onPress={() =>
               navigation.navigate("Filter", {
+                activeSort: this.state.sort,
                 categories: ["Newest", "Author", "Popular"],
                 onClick: (a) => this.handleToggle(a),
               })

@@ -23,13 +23,17 @@ export default class MainScreen extends Component {
   };
   constructor(props) {
     super(props);
-    articlesUpdated = [...props.route.params.totalArticles];
+    var articlesUpdated = [...props.route.params.totalArticles];
     articlesUpdated.sort((a, b) => this.compareDates(b.date, a.date));
-    this.state = { totalArticles: articlesUpdated };
+    this.state = {
+      totalArticles: articlesUpdated,
+      filter: this.props.route.params.filter,
+      sort: [true, false, false],
+    };
   }
   compareDates(date1, date2) {
-    date1Array = date1.split(/[\s,]+/);
-    date2Array = date2.split(/[\s,]+/);
+    var date1Array = date1.split(/[\s,]+/);
+    var date2Array = date2.split(/[\s,]+/);
     return (
       new Date(
         date1Array[2],
@@ -45,6 +49,7 @@ export default class MainScreen extends Component {
       articlesUpdated.sort((a, b) => this.compareDates(b.date, a.date));
     } else if (index == 1) {
     } else {
+      articlesUpdated.sort((a, b) => a.localeCompare(b));
     }
     sortUpdated = [false, false, false];
     sortUpdated[index] = true;
@@ -62,7 +67,7 @@ export default class MainScreen extends Component {
         <View
           style={[
             styles.banner,
-            this.state.filter === undefined
+            this.state.filter === -1
               ? styles.banner
               : { backgroundColor: palette.background },
             ,
@@ -75,7 +80,7 @@ export default class MainScreen extends Component {
             <Image
               style={{ resizeMode: "contain", height: 30, width: 30 }}
               source={
-                this.state.filter === undefined
+                this.state.filter === -1
                   ? require("../assets/menu.png")
                   : require("../assets/menuBlack.png")
               }
@@ -84,15 +89,13 @@ export default class MainScreen extends Component {
           <View
             style={[
               styles.logo,
-              this.state.filter === undefined
-                ? styles.logo
-                : { borderWidth: 0 },
+              this.state.filter === -1 ? styles.logo : { borderWidth: 0 },
             ]}
           >
             <Text
               style={[
                 styles.heading,
-                this.state.filter === undefined
+                this.state.filter === -1
                   ? styles.heading
                   : {
                       color: palette.accent,
@@ -101,7 +104,7 @@ export default class MainScreen extends Component {
                     },
               ]}
             >
-              {this.state.filter == undefined
+              {this.state.filter === -1
                 ? "GENEWS"
                 : environment.CATEGORYACCESS[this.state.filter]}
             </Text>
@@ -119,7 +122,7 @@ export default class MainScreen extends Component {
             <Text
               style={[
                 styles.filterText,
-                this.state.filter === undefined
+                this.state.filter === -1
                   ? styles.filterText
                   : { color: palette.text },
               ]}

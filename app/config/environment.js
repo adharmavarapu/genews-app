@@ -10,6 +10,7 @@ export default {
     "WORLD",
     "ARTS&CULTURE",
     "OPINIONS",
+    "COVID-19",
   ],
   MONTHS: {
     undefined,
@@ -34,5 +35,6 @@ export default {
     World: 4,
     "Arts&Culture": 5,
     Opinions: 6,
+    "Covid-19": 7,
   },
 };

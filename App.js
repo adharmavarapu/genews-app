@@ -87,12 +87,15 @@ export default class App extends Component {
           <Drawer.Screen
             name="Home"
             options={{ drawerLabel: "\tHome" }}
-            initialParams={{ totalArticles: this.state.totalArticles }}
+            initialParams={{
+              totalArticles: this.state.totalArticles,
+              filter: -1,
+            }}
             component={RootStack}
           />
           <Drawer.Screen
-            name="COVID-19"
-            options={{ drawerLabel: "\tCOVID-19" }}
+            name="Updates"
+            options={{ drawerLabel: "\tUpdates" }}
             component={CovidScreen}
           />
           {environment.CATEGORYACCESS.map((b) => (
@@ -106,7 +109,11 @@ export default class App extends Component {
                     a.category ==
                     environment.CATEGORIES[this.transformCategory(b)]
                 ),
-                filter: environment.CATEGORIES[this.transformCategory(b)],
+                filter:
+                  environment.CATEGORIES[this.transformCategory(b)] ===
+                  undefined
+                    ? -1
+                    : environment.CATEGORIES[this.transformCategory(b)],
               }}
               component={RootStack}
             />

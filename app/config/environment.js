@@ -8,8 +8,8 @@ export default {
     "MONEY",
     "FINANCE",
     "WORLD",
-    "ARTS&CULTURE",
-    "OPINIONS",
+    "ART&CULTURE",
+    "OPINION",
     "COVID-19",
   ],
   MONTHS: {
@@ -33,8 +33,8 @@ export default {
     Money: 2,
     Finance: 3,
     World: 4,
-    "Arts&Culture": 5,
-    Opinions: 6,
+    "Art&Culture": 5,
+    Opinion: 6,
     "Covid-19": 7,
   },
 };

@@ -6,7 +6,6 @@ import FilterScreen from "../screens/FilterScreen";
 export default class RootStack extends Component {
   render() {
     const Stack = createStackNavigator();
-    console.log("PROPS", this.props.route.params.totalArticles);
     return (
       <Stack.Navigator
         screenOptions={{

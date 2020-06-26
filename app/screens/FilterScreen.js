@@ -7,7 +7,7 @@ import CategoryButton from "../components/categoryButton";
 
 export default class FilterScreen extends Component {
   state = {
-    activeStates: [true, false, false],
+    activeStates: this.props.route.params.activeSort,
   };
   handleClick = (p, c) => {
     p.onClick(c);

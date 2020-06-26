@@ -5,7 +5,6 @@ import palette from "./app/config/palette";
 import RootStack from "./app/routes/RootStack";
 import AboutScreen from "./app/screens/AboutScreen";
 import CovidScreen from "./app/screens/CovidScreen";
-import OpinionScreen from "./app/screens/OpinionScreen";
 import environment from "./app/config/environment";
 
 export default class App extends Component {
@@ -95,11 +94,6 @@ export default class App extends Component {
             name="COVID-19"
             options={{ drawerLabel: "\tCOVID-19" }}
             component={CovidScreen}
-          />
-          <Drawer.Screen
-            name="Opinion Pieces"
-            options={{ drawerLabel: "\tOpinion Pieces" }}
-            component={OpinionScreen}
           />
           {environment.CATEGORYACCESS.map((b) => (
             <Drawer.Screen

@@ -13,22 +13,6 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 export default class AboutScreen extends Component {
   render() {
     const { navigation } = this.props;
-    const styles = StyleSheet.create({
-      container: {
-        flexGrow: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-      },
-
-      box: {
-        backgroundColor: "rgb(254, 241, 240)",
-        width: "90%",
-        marginTop: 10,
-      },
-      boxtext: {
-        textAlign: "center",
-      },
-    });
     return (
       <SafeAreaView style={{ marginTop: environment.TOP_MARGIN, flex: 1 }}>
         <TouchableWithoutFeedback
@@ -94,3 +78,19 @@ export default class AboutScreen extends Component {
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+  },
+
+  box: {
+    backgroundColor: "rgb(254, 241, 240)",
+    width: "90%",
+    marginTop: 10,
+  },
+  boxtext: {
+    textAlign: "center",
+  },
+});

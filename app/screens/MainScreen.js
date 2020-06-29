@@ -9,16 +9,19 @@ import {
   ScrollView,
   FlatList,
   Image,
+  Modal,
 } from "react-native";
 import palette from "../config/palette";
 import NewsFeed from "../components/NewsFeed";
 import environment from "../config/environment";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import FilterScreen from "./FilterScreen";
 
 export default class MainScreen extends Component {
   state = {
     totalArticles: this.props.route.params.totalArticles,
     filter: this.props.route.params.filter,
+    sortVisible: false,
     sort: [true, false, false],
   };
   constructor(props) {
@@ -99,7 +102,6 @@ export default class MainScreen extends Component {
                   ? styles.heading
                   : {
                       color: palette.accent,
-                      textDecorationLine: "underline",
                       fontSize: 23,
                     },
               ]}

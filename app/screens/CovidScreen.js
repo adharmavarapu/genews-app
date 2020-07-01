@@ -4,14 +4,10 @@ import {
   Text,
   View,
   SafeAreaView,
-  Platform,
   StatusBar,
-  ScrollView,
-  FlatList,
-  Image,
+  TouchableWithoutFeedback,
 } from "react-native";
 import environment from "../config/environment";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import palette from "../config/palette";
 
 class CovidText extends Component {

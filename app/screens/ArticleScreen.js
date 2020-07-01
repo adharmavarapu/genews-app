@@ -1,13 +1,5 @@
 import React, { Component } from "react";
-import {
-  Text,
-  SafeAreaView,
-  Platform,
-  StatusBar,
-  Image,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Text, SafeAreaView, Image, StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import environment from "../config/environment";
 import palette from "../config/palette";

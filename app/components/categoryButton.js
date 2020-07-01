@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import palette from "../config/palette";
 
 export default class CategoryButton extends Component {
@@ -14,31 +13,36 @@ export default class CategoryButton extends Component {
   render() {
     return (
       <React.Fragment>
-        <View style={{ borderColor: palette.subtle, borderTopWidth: 1 }} />
-        <TouchableOpacity onPress={() => this.handleToggle()}>
-          <View style={styles.category}>
-            <Text
-              style={{
-                color: palette.accent,
-                marginLeft: 20,
-                textAlignVertical: "center",
-              }}
-            >
-              {this.props.element}
-            </Text>
-            <View style={{ justifyContent: "center" }}>
-              <Image
+        <View
+          style={[
+            this.props.isStart
+              ? styles.start
+              : this.props.isEnd
+              ? styles.end
+              : styles.middle,
+            {
+              backgroundColor: this.props.isActive
+                ? palette.accent
+                : palette.background,
+            },
+          ]}
+        >
+          <TouchableOpacity onPress={() => this.handleToggle()}>
+            <View style={styles.category}>
+              <Text
                 style={{
-                  marginRight: 20,
-                  width: 15,
-                  height: 15,
-                  opacity: this.props.isActive ? 1 : 0,
+                  color: this.props.isActive
+                    ? palette.background
+                    : palette.accent,
+                  textAlign: "center",
+                  textAlignVertical: "center",
                 }}
-                source={require("../assets/checkMark.png")}
-              />
+              >
+                {this.props.element}
+              </Text>
             </View>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
       </React.Fragment>
     );
   }
@@ -46,8 +50,25 @@ export default class CategoryButton extends Component {
 const styles = StyleSheet.create({
   category: {
     flexDirection: "row",
-    width: "100%",
-    height: 50,
-    justifyContent: "space-between",
+    width: 120,
+    height: 40,
+    justifyContent: "center",
+  },
+  start: {
+    borderWidth: 1,
+    borderColor: palette.subtle,
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+  },
+  middle: {
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: palette.subtle,
+  },
+  end: {
+    borderWidth: 1,
+    borderColor: palette.subtle,
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
   },
 });

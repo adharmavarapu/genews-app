@@ -48,7 +48,7 @@ export default class App extends Component {
       },
       {
         date: "June 6, 2020",
-        category: environment.CATEGORIES["Arts&Culture"],
+        category: environment.CATEGORIES["Art&Culture"],
         desc: "",
         author: "",
         title: "Kanye West's Generous Donation",

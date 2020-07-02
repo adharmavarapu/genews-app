@@ -6,40 +6,47 @@ import {
   StyleSheet,
   View,
   ScrollView,
+  ActivityIndicator,
+  TouchableWithoutFeedback,
+  StatusBar,
 } from "react-native";
 import environment from "../config/environment";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import {} from "react-native-gesture-handler";
+import * as Font from "expo-font";
+import palette from "../config/palette";
 
-export default class AboutScreen extends Component {
+class Loader extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator />
+        <StatusBar barStyle="default" />
+      </View>
+    );
+  }
+}
+class Screen extends Component {
   render() {
     const { navigation } = this.props;
-    const styles = StyleSheet.create({
-      container: {
-        flexGrow: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-      },
-
-      box: {
-        backgroundColor: "rgb(254, 241, 240)",
-        width: "90%",
-        marginTop: 10,
-      },
-      boxtext: {
-        textAlign: "center",
-      },
-    });
     return (
-      <SafeAreaView style={{ marginTop: environment.TOP_MARGIN, flex: 1 }}>
-        <TouchableWithoutFeedback
-          style={{ marginLeft: 20, marginTop: 10 }}
-          onPress={() => navigation.openDrawer()}
-        >
-          <Image
-            style={{ resizeMode: "contain", height: 30, width: 30 }}
-            source={require("../assets/menuBlack.png")}
-          />
-        </TouchableWithoutFeedback>
+      <SafeAreaView
+        style={{
+          marginTop: environment.TOP_MARGIN,
+          flex: 1,
+          backgroundColor: palette.background,
+        }}
+      >
+        <View style={styles.topBar}>
+          <View style={{ alignSelf: "center", position: "absolute", left: 20 }}>
+            <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
+              <Image
+                style={{ resizeMode: "contain", height: 30, width: 30 }}
+                source={require("../assets/menuBlack.png")}
+              />
+            </TouchableWithoutFeedback>
+          </View>
+          <Text style={styles.titletext}>ABOUT US</Text>
+        </View>
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.container}
@@ -50,11 +57,20 @@ export default class AboutScreen extends Component {
               Have you ever started reading a news article but didn't have the
               patience or time to finish? Generation News has you covered. We
               aim to broaden news access to students by reporting current events
-              in a simplified manner. {"\n"} GENEWS is 100% powered by students:
-              Every article published has been written by someone in Gen Z.{" "}
-              {"\n"}CLICK ON THE IMAGE ABOVE OUR SUMMARY if you are inclined to
-              read the original story. {"\n"}We look forward to hearing from
-              you!
+              in a simplified manner.{" "}
+            </Text>
+            <Text style={styles.boxtext}>
+              GENEWS is 100% powered by students: Every article published has
+              been written by someone in Gen Z.{" "}
+            </Text>
+
+            <Text style={styles.boxtext}>
+              CLICK ON THE IMAGE ABOVE OUR SUMMARY if you are inclined to read
+              the original story.{" "}
+            </Text>
+
+            <Text style={styles.boxtext}>
+              We look forward to hearing from you!
             </Text>
           </View>
           <View style={styles.box}>
@@ -87,10 +103,76 @@ export default class AboutScreen extends Component {
           </View>
           <View style={styles.box}>
             <Text style={styles.boxtextheader}>Our Values.</Text>
-            <Text style={styles.boxtext}></Text>
+            <Text style={styles.boxtext}>
+              {"\u2022"}Curiosity{"\n"}
+              {"\u2022"}Debate{"\n"}
+              {"\u2022"}Productivity{"\n"}
+              {"\u2022"}Inclusion{"\n"}
+              {"\u2022"}Community{"\n"}
+              {"\u2022"}Collaboration{"\n"}
+            </Text>
           </View>
         </ScrollView>
       </SafeAreaView>
     );
   }
 }
+export default class AboutScreen extends Component {
+  state = {
+    assetsLoaded: false,
+  };
+  async componentDidMount() {
+    await Font.loadAsync({
+      crimsonTextRegular: require("../assets/fonts/CrimsonText-Regular.ttf"),
+      crimsonTextItalic: require("../assets/fonts/CrimsonText-Italic.ttf"),
+    });
+    this.setState({ assetsLoaded: true });
+  }
+  render() {
+    const { navigation } = this.props;
+
+    const { assetsLoaded } = this.state;
+    return assetsLoaded ? <Screen navigation={navigation} /> : <Loader />;
+  } // end render
+} // end class
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+  },
+  topBar: {
+    flexDirection: "row",
+    justifyContent: "center",
+    backgroundColor: palette.background,
+  },
+  titletext: {
+    textAlign: "center",
+    fontSize: 25,
+    fontFamily: "crimsonTextRegular",
+    margin: 20,
+    color: "red",
+  },
+
+  box: {
+    backgroundColor: "rgb(254, 241, 240)",
+    width: "90%",
+    marginTop: 10,
+    marginBottom: 10,
+    alignItems: "center",
+  },
+  boxtext: {
+    textAlign: "center",
+    fontSize: 21,
+    fontFamily: "crimsonTextRegular",
+    margin: 20,
+  },
+
+  boxtextheader: {
+    textAlign: "center",
+    fontSize: 25,
+    fontFamily: "crimsonTextRegular",
+    marginBottom: 20,
+    marginTop: 20,
+  },
+});

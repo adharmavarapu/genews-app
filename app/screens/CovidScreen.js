@@ -4,14 +4,16 @@ import {
   Text,
   View,
   SafeAreaView,
-  Platform,
   StatusBar,
   ScrollView,
   FlatList,
   Image,
+  Linking,
+  ActivityIndicator,
 } from "react-native";
 import environment from "../config/environment";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import * as Font from "expo-font";
 import palette from "../config/palette";
 
 class CovidText extends Component {
@@ -27,33 +29,218 @@ class CovidText extends Component {
 }
 
 export default class CovidScreen extends Component {
+  state = { assetsLoaded: false };
+  async componentDidMount() {
+    await Font.loadAsync({
+      crimsonTextRegular: require("../assets/fonts/CrimsonText-Regular.ttf"),
+    });
+    this.setState({ assetsLoaded: true });
+  }
+
   render() {
     const { navigation } = this.props;
     StatusBar.setBackgroundColor(palette.accent);
+    const { assetsLoaded } = this.state;
+    if (!assetsLoaded) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator />
+          <StatusBar barStyle="default" />
+        </View>
+      );
+    }
     return (
-      <SafeAreaView style={styles.fullContentView}>
-        <View style={{ alignItems: "center", backgroundColor: palette.accent }}>
-          <Text
+      <SafeAreaView
+        style={{
+          marginTop: environment.TOP_MARGIN,
+          flex: 1,
+          backgroundColor: palette.background,
+        }}
+      >
+        <View style={styles.topBar}>
+          <View
             style={{
-              textAlign: "center",
-              color: palette.background,
-              fontWeight: "bold",
+              alignSelf: "flex-start",
+              position: "absolute",
+              left: 20,
+              top: 20,
             }}
           >
-            Coronavirus Pandemic Updates
-          </Text>
-          <CovidText name="Covid-19 pandemic has altered life as we know it. Together, we share similar feelings of anxiety and sadness as we are forced to go into social isolation in order to protect ourselves and our loved ones. We know people who are ill, our graduations have been canceled, music festivals postponed, and school is operating via Zoom, all because of this virus. Members of Generation Z are the thought leaders of the future. Thus, it's important now, more than ever, to fully understand this virus and the global impact it has on our health and the economy. As long as COVID-19 continues to wreak havoc on our daily lives, we will post updates regarding the status of the virus. A great way to start educating yourself on COVID-19 is through the attached links under the IMPORTANT LINKS section below. These people/sites are experts on infectious diseases and provide useful information about updates on COVID-19 and ways to protect yourself from the virus. To access the sources, you can click on the images (or logos). Happy Learning! GENEWS" />
+            <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
+              <Image
+                style={{ resizeMode: "contain", height: 30, width: 30 }}
+                source={require("../assets/menuBlack.png")}
+              />
+            </TouchableWithoutFeedback>
+          </View>
+          <Text style={styles.titletext}>UPDATES</Text>
         </View>
-        <View
-          style={[
-            styles.logo,
-            { borderColor: palette.background },
-            styles.banner,
-            { backgroundColor: palette.background },
-          ]}
-        >
-          <Text>Important Links</Text>
-        </View>
+        <ScrollView>
+          <View style={styles.infoBox}>
+            <Text style={styles.heading}>COVID-19</Text>
+            <Text
+              style={{
+                fontFamily: "Cochin",
+                fontSize: 21,
+                textAlign: "center",
+                top: 10,
+              }}
+            >
+              The Covid-19 pandemic has altered life as we know it. Together, we
+              share similar feelings of anxiety and sadness as we are forced to
+              go into social isolation in order to protect ourselves and our
+              loved ones. We know people who are ill, our graduations have been
+              canceled, music festivals postponed, and school is operating via
+              Zoom, all because of this virus. Members of Generation Z are the
+              thought leaders of the future. Thus, it's important now, more than
+              ever, to fully understand this virus and the global impact it has
+              on our health and the economy. As long as COVID-19 continues to
+              wreak havoc on our daily lives, we will post updates regarding the
+              status of the virus. A great way to start educating yourself on
+              COVID-19 is through the attached links under the IMPORTANT LINKS
+              section below. These people/sites are experts on infectious
+              diseases and provide useful information about updates on COVID-19
+              and ways to protect yourself from the virus. To access the
+              sources, you can click on the links. Happy Learning! GENEWS
+            </Text>
+          </View>
+
+          <View style={styles.infoBox}>
+            <Text style={styles.heading}>Important Links</Text>
+            <Text
+              style={styles.links}
+              onPress={() =>
+                Linking.openURL(
+                  "https://www.who.int/emergencies/diseases/novel-coronavirus-2019"
+                )
+                  .then((supported) => {
+                    if (!supported) {
+                      console.log("Can't handle url: ");
+                    } else {
+                      return Linking.openURL(
+                        "https://www.who.int/emergencies/diseases/novel-coronavirus-2019"
+                      );
+                    }
+                  })
+                  .catch((err) => console.error("An error ocurred", err))
+              }
+            >
+              The World Health Organization
+            </Text>
+            <Text
+              style={styles.links}
+              onPress={() =>
+                Linking.openURL(
+                  "https://www.cdc.gov/coronavirus/2019-nCoV/index.html"
+                )
+                  .then((supported) => {
+                    if (!supported) {
+                      console.log("Can't handle url: ");
+                    } else {
+                      return Linking.openURL(
+                        "https://www.cdc.gov/coronavirus/2019-nCoV/index.html"
+                      );
+                    }
+                  })
+                  .catch((err) => console.error("An error ocurred", err))
+              }
+            >
+              The Center for Disease Control and Prevention
+            </Text>
+            <Text
+              style={styles.links}
+              onPress={() =>
+                Linking.openURL(
+                  "https://www.niaid.nih.gov/about/niaid-organization"
+                )
+                  .then((supported) => {
+                    if (!supported) {
+                      console.log("Can't handle url: ");
+                    } else {
+                      return Linking.openURL(
+                        "https://www.niaid.nih.gov/about/niaid-organization"
+                      );
+                    }
+                  })
+                  .catch((err) => console.error("An error ocurred", err))
+              }
+            >
+              The National Institute of Allergy and Infectious Diseases
+            </Text>
+            <Text
+              style={styles.links}
+              onPress={() =>
+                Linking.openURL("https://coronavirus.jhu.edu/map.html")
+                  .then((supported) => {
+                    if (!supported) {
+                      console.log("Can't handle url: ");
+                    } else {
+                      return Linking.openURL(
+                        "https://coronavirus.jhu.edu/map.html"
+                      );
+                    }
+                  })
+                  .catch((err) => console.error("An error ocurred", err))
+              }
+            >
+              Johns Hopkins University
+            </Text>
+            <Text
+              style={styles.links}
+              onPress={() =>
+                Linking.openURL("https://twitter.com/ScottGottliebMD?")
+                  .then((supported) => {
+                    if (!supported) {
+                      console.log("Can't handle url: ");
+                    } else {
+                      return Linking.openURL(
+                        "https://twitter.com/ScottGottliebMD?"
+                      );
+                    }
+                  })
+                  .catch((err) => console.error("An error ocurred", err))
+              }
+            >
+              Dr. Scott Gottlieb - 23rd Comissioner of the FDA
+            </Text>
+            <Text
+              style={styles.links}
+              onPress={() =>
+                Linking.openURL("https://www.niaid.nih.gov/about/director")
+                  .then((supported) => {
+                    if (!supported) {
+                      console.log("Can't handle url: ");
+                    } else {
+                      return Linking.openURL(
+                        "https://www.niaid.nih.gov/about/director"
+                      );
+                    }
+                  })
+                  .catch((err) => console.error("An error ocurred", err))
+              }
+            >
+              Dr. Anthony Fauci - NIAID Director
+            </Text>
+            <Text
+              style={styles.links}
+              onPress={() =>
+                Linking.openURL("https://twitter.com/drsanjaygupta")
+                  .then((supported) => {
+                    if (!supported) {
+                      console.log("Can't handle url: ");
+                    } else {
+                      return Linking.openURL(
+                        "https://twitter.com/drsanjaygupta"
+                      );
+                    }
+                  })
+                  .catch((err) => console.error("An error ocurred", err))
+              }
+            >
+              Dr. Sanjay Gupta - CNN Chief Medical Correspondant
+            </Text>
+          </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -70,14 +257,33 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     marginTop: environment.TOP_MARGIN - 10,
   },
-  banner: {
-    flexDirection: "row",
-    height: 120,
-    width: "100%",
+  container: {
+    flexGrow: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+  },
+  infoBox: {
+    marginTop: 10,
+    marginBottom: 10,
+    flexDirection: "column",
+    paddingBottom: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+    width: "90%",
     alignItems: "center",
     alignContent: "center",
-    backgroundColor: palette.accent,
-    justifyContent: "space-between",
+    alignSelf: "center",
+    backgroundColor: "rgb(254, 241, 240)",
+    justifyContent: "center",
+    borderRadius: 20,
+    borderColor: "red",
+    borderWidth: 5,
+  },
+  topBar: {
+    flexDirection: "row",
+    justifyContent: "center",
+    backgroundColor: palette.background,
+    borderBottomWidth: 5,
   },
   logo: {
     marginTop: environment.TOP_MARGIN,
@@ -90,12 +296,31 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  titletext: {
+    textAlign: "center",
+    fontSize: 25,
+    fontFamily: "crimsonTextRegular",
+    margin: 20,
+    color: "red",
+  },
   heading: {
     alignSelf: "center",
     textAlignVertical: "center",
     fontSize: 30,
-    color: palette.background,
+    top: 10,
+    color: palette.text,
+    fontWeight: "normal",
+    fontFamily: "Cochin",
     fontWeight: "bold",
+  },
+  links: {
+    fontFamily: "Cochin",
+    fontSize: 21,
+    textAlign: "center",
+    top: 20,
+    color: palette.accent,
+    textDecorationLine: "underline",
+    paddingBottom: 15,
   },
   categories: {
     flexDirection: "row",

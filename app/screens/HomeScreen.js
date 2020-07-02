@@ -9,18 +9,17 @@ import {
   ScrollView,
   FlatList,
   Image,
+  Modal,
 } from "react-native";
 import palette from "../config/palette";
 import NewsFeed from "../components/NewsFeed";
 import environment from "../config/environment";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import FilterScreen from "./FilterScreen";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default class MainScreen extends Component {
-  state = {
-    totalArticles: this.props.route.params.totalArticles,
-    filter: this.props.route.params.filter,
-    sort: [true, false, false],
-  };
+  state = {};
   constructor(props) {
     super(props);
     var articlesUpdated = [...props.route.params.totalArticles];
@@ -29,6 +28,7 @@ export default class MainScreen extends Component {
       totalArticles: articlesUpdated,
       filter: this.props.route.params.filter,
       sort: [true, false, false],
+      filterVisible: false,
     };
   }
   compareDates(date1, date2) {
@@ -48,8 +48,8 @@ export default class MainScreen extends Component {
     if (index == 0) {
       articlesUpdated.sort((a, b) => this.compareDates(b.date, a.date));
     } else if (index == 1) {
+      articlesUpdated.sort((a, b) => a.author.localeCompare(b.author));
     } else {
-      articlesUpdated.sort((a, b) => a.localeCompare(b));
     }
     sortUpdated = [false, false, false];
     sortUpdated[index] = true;
@@ -64,6 +64,57 @@ export default class MainScreen extends Component {
     StatusBar.setBackgroundColor(palette.accent);
     return (
       <SafeAreaView style={styles.fullContentView}>
+        <Modal
+          visible={this.state.filterVisible}
+          transparent={true}
+          animationType="slide"
+        >
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "column-reverse",
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: palette.greyBackground,
+              }}
+            >
+              <View
+                style={{
+                  height: 40,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: palette.accent,
+                  bottom: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    color: palette.background,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Filters
+                </Text>
+                <View style={{ position: "absolute", right: 10 }}>
+                  <MaterialIcons
+                    name="close"
+                    size={24}
+                    color="white"
+                    onPress={() => this.setState({ filterVisible: false })}
+                  ></MaterialIcons>
+                </View>
+              </View>
+              <FilterScreen
+                activeSort={this.state.sort}
+                categories={["Newest", "Author", "Popular"]}
+                onClick={(a) => this.handleToggle(a)}
+              />
+            </View>
+          </View>
+        </Modal>
         <View
           style={[
             styles.banner,
@@ -99,7 +150,6 @@ export default class MainScreen extends Component {
                   ? styles.heading
                   : {
                       color: palette.accent,
-                      textDecorationLine: "underline",
                       fontSize: 23,
                     },
               ]}
@@ -111,13 +161,7 @@ export default class MainScreen extends Component {
           </View>
           <TouchableWithoutFeedback
             style={styles.filterButton}
-            onPress={() =>
-              navigation.navigate("Filter", {
-                activeSort: this.state.sort,
-                categories: ["Newest", "Author", "Popular"],
-                onClick: (a) => this.handleToggle(a),
-              })
-            }
+            onPress={() => this.setState({ filterVisible: true })}
           >
             <Text
               style={[
@@ -145,6 +189,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-start",
+    marginTop: environment.TOP_MARGIN - 10,
   },
   banner: {
     flexDirection: "row",
@@ -156,12 +201,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   logo: {
-    marginTop: environment.TOP_MARGIN,
     color: palette.accent,
     width: 200,
     height: 55,
     borderWidth: 2.5,
-    //borderRadius: 10,
+    marginTop: 10,
     borderColor: palette.background,
     alignItems: "center",
     justifyContent: "center",

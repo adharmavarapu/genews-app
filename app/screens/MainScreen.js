@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-start",
-    marginTop: environment.TOP_MARGIN - 10,
+    marginTop: environment.TOP_MARGIN,
   },
   banner: {
     flexDirection: "row",

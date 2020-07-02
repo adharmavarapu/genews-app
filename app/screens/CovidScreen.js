@@ -10,6 +10,7 @@ import {
   Image,
   Linking,
   ActivityIndicator,
+  Platform,
 } from "react-native";
 import environment from "../config/environment";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
@@ -42,12 +43,12 @@ export default class CovidScreen extends Component {
     StatusBar.setBackgroundColor(palette.accent);
     const { assetsLoaded } = this.state;
     if (!assetsLoaded) {
-      return (
+      return Platform.OS == "ios" ? (
         <View style={styles.container}>
           <ActivityIndicator />
           <StatusBar barStyle="default" />
         </View>
-      );
+      ) : null;
     }
     return (
       <SafeAreaView
@@ -80,7 +81,7 @@ export default class CovidScreen extends Component {
             <Text style={styles.heading}>COVID-19</Text>
             <Text
               style={{
-                fontFamily: "Cochin",
+                fontFamily: Platform.OS == "ios" ? "Cochin" : "",
                 fontSize: 21,
                 textAlign: "center",
                 top: 10,
@@ -248,14 +249,14 @@ export default class CovidScreen extends Component {
 
 const styles = StyleSheet.create({
   baseText: {
-    fontFamily: "Cochin",
+    fontFamily: Platform.OS == "ios" ? "Cochin" : "",
   },
   fullContentView: {
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-start",
-    marginTop: environment.TOP_MARGIN - 10,
+    marginTop: environment.TOP_MARGIN,
   },
   container: {
     flexGrow: 1,
@@ -283,7 +284,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     backgroundColor: palette.background,
-    borderBottomWidth: 5,
+    //borderBottomWidth: 5,
   },
   logo: {
     marginTop: environment.TOP_MARGIN,
@@ -310,11 +311,11 @@ const styles = StyleSheet.create({
     top: 10,
     color: palette.text,
     fontWeight: "normal",
-    fontFamily: "Cochin",
+    fontFamily: Platform.OS == "ios" ? "Cochin" : "",
     fontWeight: "bold",
   },
   links: {
-    fontFamily: "Cochin",
+    fontFamily: Platform.OS == "ios" ? "Cochin" : "",
     fontSize: 21,
     textAlign: "center",
     top: 20,

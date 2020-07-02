@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   TouchableWithoutFeedback,
   StatusBar,
+  Platform,
 } from "react-native";
 import environment from "../config/environment";
 import {} from "react-native-gesture-handler";
@@ -17,12 +18,12 @@ import palette from "../config/palette";
 
 class Loader extends Component {
   render() {
-    return (
+    return Platform.OS == "ios" ? (
       <View style={styles.container}>
         <ActivityIndicator />
         <StatusBar barStyle="default" />
       </View>
-    );
+    ) : null;
   }
 }
 class Screen extends Component {

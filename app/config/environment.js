@@ -11,9 +11,6 @@ export default {
     "ART&CULTURE",
     "OPINION",
     "COVID-19",
-
-    
-   
   ],
   MONTHS: {
     undefined,

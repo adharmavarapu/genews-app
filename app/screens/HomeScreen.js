@@ -77,7 +77,7 @@ export default class MainScreen extends Component {
           >
             <View
               style={{
-                backgroundColor: palette.greyBackground,
+                backgroundColor: palette.background,
               }}
             >
               <View

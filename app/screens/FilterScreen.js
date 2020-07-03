@@ -4,10 +4,11 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
+  TouchableHighlight,
 } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 import environment from "../config/environment";
-import {} from "react-native-gesture-handler";
+import ModalDropdown from "react-native-modal-dropdown";
 import palette from "../config/palette";
 import CategoryButton from "../components/categoryButton";
 
@@ -30,12 +31,15 @@ export default class FilterScreen extends Component {
               color: palette.text,
               textAlignVertical: "center",
               fontWeight: "bold",
+              marginBottom: 10,
             }}
           >
             Sort By
           </Text>
         </View>
-        <View style={{ marginLeft: 20, flexDirection: "row" }}>
+        <View
+          style={{ marginLeft: 20, flexDirection: "row", marginBottom: 10 }}
+        >
           {this.props.categories.map((c) => (
             <CategoryButton
               key={c}
@@ -54,13 +58,48 @@ export default class FilterScreen extends Component {
             />
           ))}
         </View>
+        <View style={styles.heading}>
+          <Text
+            style={{
+              color: palette.text,
+              textAlignVertical: "center",
+              fontWeight: "bold",
+              marginBottom: 10,
+            }}
+          >
+            Narrow Search
+          </Text>
+        </View>
+        <TouchableHighlight
+          underlayColor={palette.greyBackground}
+          onPress={() => console.log("works")}
+        >
+          <View
+            style={{
+              width: "100%",
+              borderTopWidth: 1,
+              borderBottomWidth: 1,
+              borderColor: palette.subtle,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              height: 60,
+              alignItems: "center",
+            }}
+          >
+            <Text style={[styles.heading, { marginLeft: 20 }]}>By Author</Text>
+            <View style={{ right: 25 }}>
+              <MaterialIcons name="chevron-right" size={24}></MaterialIcons>
+            </View>
+          </View>
+        </TouchableHighlight>
+        <ModalDropdown options={["option 1", "option 2"]} />
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
   fullContentView: {
-    backgroundColor: palette.greyBackground,
+    backgroundColor: palette.background,
     width: "100%",
     alignSelf: "flex-end",
     marginBottom: 15,
@@ -71,8 +110,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   heading: {
-    marginLeft: 20,
-    borderColor: palette.subtle,
-    marginBottom: 10,
+    marginLeft: 5,
   },
 });

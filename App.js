@@ -8,7 +8,6 @@ import CovidScreen from "./app/screens/CovidScreen";
 import environment from "./app/config/environment";
 import TopicsScreen from "./app/screens/TopicsScreen";
 
-
 export default class App extends Component {
   state = {
     totalArticles: [
@@ -82,16 +81,23 @@ export default class App extends Component {
           }}
         >
           <Drawer.Screen
+            name="Home"
+            options={{ drawerLabel: "\tHome" }}
+            initialParams={{
+              totalArticles: this.state.totalArticles,
+              filter: -1,
+            }}
+            component={RootStack}
+          />
+          <Drawer.Screen
             name="About Us"
             options={{ drawerLabel: "\tAbout Us" }}
             component={AboutScreen}
           />
-            <Drawer.Screen
+          <Drawer.Screen
             name="TOPICS"
             options={{ drawerLabel: "\tTOPICS" }}
             component={TopicsScreen}
-         
-      
           />
           {environment.CATEGORYACCESS.map((b) => (
             <Drawer.Screen

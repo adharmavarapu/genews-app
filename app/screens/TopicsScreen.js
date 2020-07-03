@@ -45,8 +45,10 @@ export default class TopicsScreen extends Component {
       },
       topBar: {
         top: 10,
+        height: 120,
         flexDirection: "row",
         justifyContent: "center",
+        alignItems: "center",
         backgroundColor: palette.background,
       },
       titletext: {
@@ -57,6 +59,7 @@ export default class TopicsScreen extends Component {
       },
       backgroundImage: {
         flex: 1,
+        tintColor: "#000000aa",
         alignSelf: "stretch",
         width: null,
       },
@@ -74,7 +77,7 @@ export default class TopicsScreen extends Component {
           </View>
           <Text style={styles.titletext}>EXPLORE</Text>
         </View>
-        <ScrollView>
+        <ScrollView style={{ flexGrow: 1 }}>
           <View
             style={{
               flex: 1,
@@ -87,7 +90,16 @@ export default class TopicsScreen extends Component {
           >
             {environment.CATEGORYACCESS.map((c) => (
               <TouchableOpacity
-                //onPress={() => }
+                onPress={() =>
+                  navigation.navigate("Home", {
+                    totalArticles: this.props.route.params.totalArticles.filter(
+                      (a) =>
+                        a.category ==
+                        environment.CATEGORIES[this.transformCategory(c)]
+                    ),
+                    filter: environment.CATEGORIES[this.transformCategory(c)],
+                  })
+                }
                 key={environment.CATEGORIES[this.transformCategory(c)]}
               >
                 <ImageBackground
@@ -96,6 +108,7 @@ export default class TopicsScreen extends Component {
                 >
                   <View
                     style={{
+                      backgroundColor: "#808080aa",
                       width: 190,
                       height: 190,
                       alignItems: "center",

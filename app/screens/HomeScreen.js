@@ -14,7 +14,10 @@ import {
 import palette from "../config/palette";
 import NewsFeed from "../components/NewsFeed";
 import environment from "../config/environment";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import {
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 import FilterScreen from "./FilterScreen";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -64,6 +67,11 @@ export default class MainScreen extends Component {
     StatusBar.setBackgroundColor(palette.accent);
     return (
       <SafeAreaView style={styles.fullContentView}>
+        {this.state.filter != -1 ? (
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Text>Back</Text>
+          </TouchableOpacity>
+        ) : null}
         <Modal
           visible={this.state.filterVisible}
           transparent={true}

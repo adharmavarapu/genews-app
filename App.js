@@ -7,6 +7,7 @@ import AboutScreen from "./app/screens/AboutScreen";
 import CovidScreen from "./app/screens/CovidScreen";
 import environment from "./app/config/environment";
 import TopicsScreen from "./app/screens/TopicsScreen";
+import TopicsStack from "./app/routes/TopicsStack";
 
 export default class App extends Component {
   state = {
@@ -95,30 +96,18 @@ export default class App extends Component {
             component={AboutScreen}
           />
           <Drawer.Screen
+            name="Updates"
+            options={{ drawerLabel: "\tUpdates" }}
+            component={CovidScreen}
+          />
+          <Drawer.Screen
             name="Explore"
             options={{ drawerLabel: "\tExplore" }}
-            component={TopicsScreen}
+            initialParams={{
+              totalArticles: this.state.totalArticles,
+            }}
+            component={TopicsStack}
           />
-          {environment.CATEGORYACCESS.map((b) => (
-            <Drawer.Screen
-              name={this.transformCategory(b)}
-              key={environment.CATEGORYACCESS.indexOf(b)}
-              options={{ drawerLabel: "\t" + this.transformCategory(b) }}
-              initialParams={{
-                totalArticles: this.state.totalArticles.filter(
-                  (a) =>
-                    a.category ==
-                    environment.CATEGORIES[this.transformCategory(b)]
-                ),
-                filter:
-                  environment.CATEGORIES[this.transformCategory(b)] ===
-                  undefined
-                    ? -1
-                    : environment.CATEGORIES[this.transformCategory(b)],
-              }}
-              component={RootStack}
-            />
-          ))}
         </Drawer.Navigator>
       </NavigationContainer>
     );

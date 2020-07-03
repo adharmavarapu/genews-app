@@ -87,6 +87,7 @@ export default class TopicsScreen extends Component {
           >
             {environment.CATEGORYACCESS.map((c) => (
               <TouchableOpacity
+                //onPress={() => }
                 key={environment.CATEGORIES[this.transformCategory(c)]}
               >
                 <ImageBackground

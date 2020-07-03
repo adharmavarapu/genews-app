@@ -95,8 +95,8 @@ export default class App extends Component {
             component={AboutScreen}
           />
           <Drawer.Screen
-            name="TOPICS"
-            options={{ drawerLabel: "\tTOPICS" }}
+            name="Explore"
+            options={{ drawerLabel: "\tExplore" }}
             component={TopicsScreen}
           />
           {environment.CATEGORYACCESS.map((b) => (

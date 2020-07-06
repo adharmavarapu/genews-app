@@ -92,7 +92,6 @@ export default class FilterScreen extends Component {
             </View>
           </View>
         </TouchableHighlight>
-        <ModalDropdown options={["option 1", "option 2"]} />
       </View>
     );
   }

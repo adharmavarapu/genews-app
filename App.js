@@ -91,9 +91,12 @@ export default class App extends Component {
             component={RootStack}
           />
           <Drawer.Screen
-            name="About Us"
-            options={{ drawerLabel: "\tAbout Us" }}
-            component={AboutScreen}
+            name="Explore"
+            options={{ drawerLabel: "\tExplore" }}
+            initialParams={{
+              totalArticles: this.state.totalArticles,
+            }}
+            component={TopicsStack}
           />
           <Drawer.Screen
             name="Updates"
@@ -101,12 +104,9 @@ export default class App extends Component {
             component={CovidScreen}
           />
           <Drawer.Screen
-            name="Explore"
-            options={{ drawerLabel: "\tExplore" }}
-            initialParams={{
-              totalArticles: this.state.totalArticles,
-            }}
-            component={TopicsStack}
+            name="About Us"
+            options={{ drawerLabel: "\tAbout Us" }}
+            component={AboutScreen}
           />
         </Drawer.Navigator>
       </NavigationContainer>

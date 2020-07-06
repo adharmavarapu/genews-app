@@ -19,7 +19,7 @@ import {
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import FilterScreen from "./FilterScreen";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 
 export default class MainScreen extends Component {
   state = {};
@@ -68,9 +68,32 @@ export default class MainScreen extends Component {
     return (
       <SafeAreaView style={styles.fullContentView}>
         {this.state.filter != -1 ? (
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text>Back</Text>
-          </TouchableOpacity>
+          <View
+            style={{
+              position: "absolute",
+              width: 60,
+              height: 60,
+              top: "90%",
+              left: 30,
+              zIndex: 1,
+            }}
+          >
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <View
+                style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: 30,
+                  backgroundColor: palette.accent,
+                  alignItems: "center",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}
+              >
+                <MaterialIcons name="explore" size={24} color="white" />
+              </View>
+            </TouchableOpacity>
+          </View>
         ) : null}
         <Modal
           visible={this.state.filterVisible}

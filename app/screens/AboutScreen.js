@@ -15,17 +15,8 @@ import environment from "../config/environment";
 import {} from "react-native-gesture-handler";
 import * as Font from "expo-font";
 import palette from "../config/palette";
+import Loader from "../components/Loader";
 
-class Loader extends Component {
-  render() {
-    return Platform.OS == "ios" ? (
-      <View style={styles.container}>
-        <ActivityIndicator />
-        <StatusBar barStyle="default" />
-      </View>
-    ) : null;
-  }
-}
 class Screen extends Component {
   render() {
     const { navigation } = this.props;

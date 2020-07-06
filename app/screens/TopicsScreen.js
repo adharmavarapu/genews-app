@@ -12,7 +12,9 @@ import {
 } from "react-native";
 import environment from "../config/environment";
 import palette from "../config/palette";
-export default class TopicsScreen extends Component {
+import Loader from "../components/Loader";
+import * as Font from "expo-font";
+class Screen extends Component {
   state = {
     BLM: require("../assets/BLM.jpg"),
     Politics: require("../assets/POLITICS.jpg"),
@@ -38,32 +40,7 @@ export default class TopicsScreen extends Component {
   }
   render() {
     const { navigation } = this.props;
-    const styles = StyleSheet.create({
-      container: {
-        marginTop: environment.TOP_MARGIN,
-        backgroundColor: "#fff",
-      },
-      topBar: {
-        top: 10,
-        height: 120,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: palette.background,
-      },
-      titletext: {
-        textAlign: "center",
-        fontSize: 25,
-        margin: 20,
-        color: "red",
-      },
-      backgroundImage: {
-        flex: 1,
-        tintColor: "#000000aa",
-        alignSelf: "stretch",
-        width: null,
-      },
-    });
+
     return (
       <SafeAreaView styles={styles.container}>
         <View style={styles.topBar}>
@@ -83,13 +60,14 @@ export default class TopicsScreen extends Component {
               flex: 1,
               flexDirection: "row",
               flexWrap: "wrap",
-              justifyContent: "center",
+              justifyContent: "space-evenly",
               marginLeft: 5,
               marginRight: 5,
             }}
           >
             {environment.CATEGORYACCESS.map((c) => (
               <TouchableOpacity
+                style={{ marginBottom: 5 }}
                 onPress={() =>
                   navigation.navigate("Home", {
                     totalArticles: this.props.route.params.totalArticles.filter(
@@ -110,7 +88,7 @@ export default class TopicsScreen extends Component {
                     style={{
                       backgroundColor: "#808080aa",
                       width: 190,
-                      height: 190,
+                      height: 185,
                       alignItems: "center",
                       justifyContent: "center",
                     }}
@@ -134,3 +112,52 @@ export default class TopicsScreen extends Component {
     );
   }
 }
+export default class TopicsScreen extends Component {
+  state = {
+    assetsLoaded: false,
+  };
+  async componentDidMount() {
+    await Font.loadAsync({
+      crimsonTextRegular: require("../assets/fonts/CrimsonText-Regular.ttf"),
+      crimsonTextItalic: require("../assets/fonts/CrimsonText-Italic.ttf"),
+    });
+    this.setState({ assetsLoaded: true });
+  }
+  render() {
+    const { navigation } = this.props;
+    const { route } = this.props;
+    const { assetsLoaded } = this.state;
+    return assetsLoaded ? (
+      <Screen route={route} navigation={navigation} />
+    ) : (
+      <Loader />
+    );
+  }
+}
+const styles = StyleSheet.create({
+  container: {
+    marginTop: environment.TOP_MARGIN,
+    backgroundColor: "#fff",
+  },
+  topBar: {
+    top: 10,
+    height: 120,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: palette.background,
+  },
+  titletext: {
+    textAlign: "center",
+    fontSize: 25,
+    fontFamily: "crimsonTextRegular",
+    margin: 20,
+    color: "red",
+  },
+  backgroundImage: {
+    flex: 1,
+    tintColor: "#000000aa",
+    alignSelf: "stretch",
+    width: null,
+  },
+});

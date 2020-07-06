@@ -76,7 +76,7 @@ export default class CovidScreen extends Component {
           </View>
           <Text style={styles.titletext}>UPDATES</Text>
         </View>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.infoBox}>
             <Text style={styles.heading}>COVID-19</Text>
             <Text
@@ -85,6 +85,7 @@ export default class CovidScreen extends Component {
                 fontSize: 21,
                 textAlign: "center",
                 top: 10,
+                color: "white",
               }}
             >
               The Covid-19 pandemic has altered life as we know it. Together, we
@@ -274,11 +275,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     alignSelf: "center",
-    backgroundColor: "rgb(254, 241, 240)",
+    backgroundColor: palette.accent, //"rgb(254, 241, 240)",
     justifyContent: "center",
-    borderRadius: 20,
-    borderColor: "red",
-    borderWidth: 5,
   },
   topBar: {
     flexDirection: "row",
@@ -308,18 +306,17 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     textAlignVertical: "center",
     fontSize: 30,
-    top: 10,
-    color: palette.text,
+    margin: 20,
+    color: "white",
     fontWeight: "normal",
     fontFamily: Platform.OS == "ios" ? "Cochin" : "",
-    fontWeight: "bold",
   },
   links: {
     fontFamily: Platform.OS == "ios" ? "Cochin" : "",
     fontSize: 21,
     textAlign: "center",
     top: 20,
-    color: palette.accent,
+    color: "white",
     textDecorationLine: "underline",
     paddingBottom: 15,
   },

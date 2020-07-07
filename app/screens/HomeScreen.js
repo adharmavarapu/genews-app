@@ -35,8 +35,8 @@ export default class MainScreen extends Component {
     };
   }
   compareDates(date1, date2) {
-    var date1Array = date1.split(/[\s,]+/);
-    var date2Array = date2.split(/[\s,]+/);
+    var date1Array = date1.split(" ");
+    var date2Array = date2.split(" ");
     return (
       new Date(
         date1Array[2],

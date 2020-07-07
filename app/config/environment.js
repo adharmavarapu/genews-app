@@ -20,6 +20,7 @@ export default {
     April: 4,
     May: 5,
     June: 6,
+    Jul: 7,
     July: 7,
     August: 8,
     September: 9,
